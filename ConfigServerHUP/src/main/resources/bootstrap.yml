@@ -20,7 +20,7 @@ spring:
         git:
           default-label: main
           uri: https://github.com/daneradev/springboot-hookItup-config.git
-          username: daneradev
+          username:
           password:
           search-paths:
             - main
