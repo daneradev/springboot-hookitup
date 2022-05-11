@@ -32,8 +32,8 @@ spring:
   data:
     cassandra:
       keyspace-name: consumer
-      username: mLUYUPakNtFwPjjpCGxvivnS
-      password: s7.iy1N+,_XER2NZ8Gmgp-D4zaZbSeRr2,HddkIsWzvL+XczX4mlu.2ZGh-8urt5y+zhdZFotubXTQcYcCz8keDAC9kDhlZhfxAwZ.Z0BlQtBYrC,+iwM9Zp-cZwX_7l
+      username: 
+      password: '{cipher}<your password>'
       schema-action: NONE
       request:
         timeout: 15s

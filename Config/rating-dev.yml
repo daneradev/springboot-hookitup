@@ -27,7 +27,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/rating
     username: postgres
-    password: '{cipher}AQCVj6Mg6FVyvt0Kk/Udxw5KaQE8hzMkFpdSfgKss+AYt1gaYHa5n7pGnYANR/fptCzDPxsjjp50fM4gTC0iYxoV33eQ+ta4PwM0byzm79u9mbdvsCECIeWjHBXcfnTjgl9RSEx6x4ivynEyiRqLR5Sr/Vuxdto2DPVB6/AHeA1m5QXLZvE0Pk1zGvtJH7+9rYiA/6KB2dmNcN3oCzR8Xqcd91vmPAsX/h9WuiOoDQz7w2uVGqKfauGxUsPC99wnBXrW0gxUEJS9XWepG6o/yuIA39QZDKd0R/gxqMMGpI7pIIROz0ag4BiqB/HufucwpJ3JYGwD4o5+kx5JXINsRIN3p8d6c0JV7PcuJ3nSgGlORROAGThccm4o3Nd/SUTcNno='
+    password: '{cipher}<your password>'
   output:
     ansi:
       enabled: ALWAYS
