@@ -92,3 +92,11 @@ Figure 4: Consumer's screens 1, 2, 3, 4.
   title="Application Arquitecture"
   style="display: inline-block; margin: 0 auto">
 Figure 5: Consumer's screens 5, 6, 7.
+
+# References:
+
+1. Carnell, J., Huaylupo, I. (2021) Spring Microservices in Action. 2nd ed. Shelter Island, NY: Manning
+
+2. Carpenter, J., Hewitt, E. (2020) Cassandra The Definitive Guide. 3 ed. Sebastapol: 0'Reilly
+
+3. Scott, D. (2020) Kafka in Action : Manning
