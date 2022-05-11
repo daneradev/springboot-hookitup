@@ -1,0 +1,27 @@
+server:
+  port: 1010
+
+encrypt:
+  key-store:
+    secret: password
+    password: password
+    location: simple.jks
+    alias: configserver
+
+spring:
+  output:
+    ansi:
+      enabled: ALWAYS
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          default-label: main
+          uri: https://github.com/daneradev/springboot-hookItup-config.git
+          username: daneradev
+          password:
+          search-paths:
+            - main
+

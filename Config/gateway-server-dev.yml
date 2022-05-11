@@ -1,0 +1,59 @@
+spring:
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8080/realms/hook-it-up
+            token-uri: http://localhost:8080/realms/hook-it-up/protocol/openid-connect/token
+            userinfo-uri: http://localhost:8080/realms/hook-it-up/protocol/openid-connect/userinfo
+            authorization-uri: http://localhost:8080/realms/hook-it-up/protocol/openid-connect/auth
+        registration:
+          producer:
+            clientName: producer
+            provider: keycloak
+            client-id: producer
+            client-secret: SqKBTCuWQoMbAaXrFuRrtX2Efk3xdbXA
+            scope:
+              - email
+              - profile
+              - roles
+          consumer:
+            clientName: consumer
+            provider: keycloak
+            client-id: consumer
+            client-secret: QeZiM0ns6EnoicBiEosJa8IHqnwr9DXD
+            scope:
+              - email
+              - profile
+              - roles
+  cloud:
+    gateway:
+      default-filters:
+        - TokenRelay
+      discovery:
+        locator:
+          lower-case-service-id: true
+          enabled: true
+      routes:
+        filters:
+          - RemoveRequestHeader= Cookie
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:1011/eureka/
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - gateway
+server:
+  port: 1012

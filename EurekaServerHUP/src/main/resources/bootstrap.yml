@@ -1,0 +1,8 @@
+spring:
+  output:
+    ansi:
+      enabled: ALWAYS
+  config:
+    import: optional:configserver:http://localhost:1010
+  application:
+    name: eureka-server

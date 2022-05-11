@@ -1,0 +1,100 @@
+spring:
+  cloud:
+    stream:
+      function:
+        definition: pendingRating
+      bindings:
+        pendingRating-in-0:
+          destination: pending-rating
+      kafka:
+        binder:
+          auto-create-topics: true
+          brokers:
+            - localhost:29092
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/hook-it-up
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/rating
+    username: postgres
+    password: '{cipher}AQCVj6Mg6FVyvt0Kk/Udxw5KaQE8hzMkFpdSfgKss+AYt1gaYHa5n7pGnYANR/fptCzDPxsjjp50fM4gTC0iYxoV33eQ+ta4PwM0byzm79u9mbdvsCECIeWjHBXcfnTjgl9RSEx6x4ivynEyiRqLR5Sr/Vuxdto2DPVB6/AHeA1m5QXLZvE0Pk1zGvtJH7+9rYiA/6KB2dmNcN3oCzR8Xqcd91vmPAsX/h9WuiOoDQz7w2uVGqKfauGxUsPC99wnBXrW0gxUEJS9XWepG6o/yuIA39QZDKd0R/gxqMMGpI7pIIROz0ag4BiqB/HufucwpJ3JYGwD4o5+kx5JXINsRIN3p8d6c0JV7PcuJ3nSgGlORROAGThccm4o3Nd/SUTcNno='
+  output:
+    ansi:
+      enabled: ALWAYS
+      
+management:
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: "*"
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:1011/eureka/
+
+server:
+  port: 2003
+
+my-kafka:
+  divider: 7b95ee51-6ee2-475a-abe3-1f812d65f436
+
+resilience4j:
+  retry:
+    instances:
+      ratingRetry:
+        maxRetryAttempts: 3
+        waitDuration: 10000
+        retryExceptions:
+          - java.util.concurrent.TimeoutException
+
+
+  ratelimiter:
+    instances:
+      ratingRate:
+        limitForPeriod: 5
+        limitRefreshPeriod: 2s
+        timeoutDuration: 1000ms
+        registerHealthIndicator: true
+
+  bulkhead:
+    instances:
+      ratingBulkhead:
+        maxWaitDuration: 10ms
+        maxConcurrentCalls: 20
+
+  thread-pool-bulkhead:
+    instances:
+      ratingBulkheadPool:
+        maxThreadPoolSize: 1
+        coreThreadPoolSize: 1
+        queueCapacity: 1
+
+  circuitbreaker:
+    instances:
+      ratingCircuit:
+        registerHealthIndicator: true
+        ringBufferSizeInClosedState: 10
+        ringBufferSizeInHalfOpenState: 5
+        waitDurationInOpenState: 10s
+        failureRateThreshold: 50
+        recordExceptions:
+          - org.springframework.web.client.HttpServerErrorException
+          - java.io.IOException
+          - java.util.concurrent.TimeoutException
+          - org.springframework.web.client.ResourceAccessException

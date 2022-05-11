@@ -1,0 +1,71 @@
+spring:
+  cloud:
+    stream:
+      function:
+        definition: offerDeclined;dealStartedByProducer
+      bindings:
+        offerDeclined-in-0:
+          destination: decline-offer
+        dealStartedByProducer-in-0:
+          destination: deal-started-by-producer
+        sumNumberOffers-out-0:
+          destination: sum-number-offers
+        dealStartedByProducer-out-0:
+          destination: close-deal
+        subtractNumberOffers-out-0:
+          destination: subtract-number-offers
+        dealStartedByConsumer-out-0:
+          destination: deal-started-by-consumer
+      kafka:
+        binder:
+          auto-create-topics: true
+          brokers:
+            - localhost:29092
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/hook-it-up
+  output:
+    ansi:
+      enabled: ALWAYS
+  data:
+    cassandra:
+      keyspace-name: consumer
+      username: mLUYUPakNtFwPjjpCGxvivnS
+      password: s7.iy1N+,_XER2NZ8Gmgp-D4zaZbSeRr2,HddkIsWzvL+XczX4mlu.2ZGh-8urt5y+zhdZFotubXTQcYcCz8keDAC9kDhlZhfxAwZ.Z0BlQtBYrC,+iwM9Zp-cZwX_7l
+      schema-action: NONE
+      request:
+        timeout: 15s
+      connection:
+        connect-timeout: 15s
+        init-query-timeout: 15s
+
+datastax.astra:
+  secure-connect-bundle: secure-connect.zip
+
+management:
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: "*"
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:1011/eureka/
+
+server:
+  port: 2001
+
+my-kafka:
+  bindings:
+    sumNumberOffers: sumNumberOffers-out-0
+    subtractNumberOffers: subtractNumberOffers-out-0
+    deal-started-by-consumer: dealStartedByConsumer-out-0
+  divider: 7b95ee51-6ee2-475a-abe3-1f812d65f436
